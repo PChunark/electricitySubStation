@@ -11,6 +11,13 @@ vsppNE<- read_csv("data/vspptmo_adjustNE.csv")%>%
               contractCapMW = CONTRACTED_CAP_MW) %>%
        filter(region == "ภาคตะวันออกเฉียงเหนือ")
 
+# Energy and MW data of VSPP in MEA and PEA
+
+a <- read_csv("data/rawVsppPEA.csv")%>%
+  select(year, regionNumber, province, fuel, contractCapacityMW, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) %>%
+  filter(year == "2564", regionNumber == "2") %>% replace_na(list(contractCapacityMW = 0))
+  
+
 # Create yearly typical profile
 typicalProfile1Year <- 
   read_csv("data/typicalREprofile1day.csv")%>% 
@@ -21,6 +28,9 @@ df <-
     as.POSIXct("2020/01/01 00:00:00"),
     by = (30*60))) %>%
   cbind(typicalProfile1Year)
+
+
+
 
 
 # Plot VSPP capacity in NE
