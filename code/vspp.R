@@ -16,9 +16,11 @@ typicalProfile1Year <-
   read_csv("data/typicalREprofile1day.csv")%>% 
   slice(rep(1:n(), 365))
 
-b <- data.frame(seq(as.POSIXct("2019/01/01 00:30:00"),
-    as.POSIXct("2019/12/31 00:00:00"),
-    by = (30*60)))
+df <-
+  data.frame(TIMESTAMP = seq(as.POSIXct("2019/01/01 00:30:00"),
+    as.POSIXct("2020/01/01 00:00:00"),
+    by = (30*60))) %>%
+  cbind(typicalProfile1Year)
 
 
 # Plot VSPP capacity in NE
