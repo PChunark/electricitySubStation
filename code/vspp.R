@@ -11,6 +11,8 @@ vsppNE<- read_csv("data/vspptmo_adjustNE.csv")%>%
               contractCapMW = CONTRACTED_CAP_MW) %>%
        filter(region == "ภาคตะวันออกเฉียงเหนือ")
 
+
+# Plot VSPP capacity in NE
 vsppNE %>%
   ggplot(aes(x = province, y = contractCapMW, group = fuel, color = fuel))+
   geom_point()+
