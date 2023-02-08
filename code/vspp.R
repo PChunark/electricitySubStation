@@ -12,7 +12,10 @@ vsppNE<- read_csv("data/vspptmo_adjustNE.csv")%>%
        filter(region == "ภาคตะวันออกเฉียงเหนือ")
 
 # Create yearly typical profile
-read_csv("data/typicalREprofile1day.csv")%>% slice(rep(1:n(), 365))
+typicalProfile1Year <- 
+  read_csv("data/typicalREprofile1day.csv")%>% 
+  slice(rep(1:n(), 365))
+
 b <- data.frame(seq(as.POSIXct("2019/01/01 00:30:00"),
     as.POSIXct("2019/12/31 00:00:00"),
     by = (30*60)))
