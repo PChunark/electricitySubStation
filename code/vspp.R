@@ -12,6 +12,25 @@ vsppNE<- read_csv("data/vspptmo_adjustNE.csv")%>%
        filter(region == "ภาคตะวันออกเฉียงเหนือ")
 
 # Energy and MW data of VSPP in MEA and PEA
+inputYear <- "2564"
+region <- "3"
+
+if (inputYear == inputYear & region == region) {
+  a <- read_csv("data/rawVsppPEA.csv")%>%
+    select(year, regionNumber, province, fuel, contractCapacityMW, month.abb) %>%
+    replace_na(list(contractCapacityMW = 0))%>%
+    pivot_longer(col = month.abb,
+                 names_to = "month",
+                 values_to = "energy")%>%
+    mutate(energy = energy/1000)%>%
+    filter(year == inputYear, regionNumber == region) %>% 
+    group_by(province, fuel, month) %>%
+    summarise(sumEnergy = sum(energy), .groups = "drop")
+  print(a)
+}else {
+  print("not match")
+  }
+
 
 read_csv("data/rawVsppPEA.csv")%>%
   select(year, regionNumber, province, fuel, contractCapacityMW, month.abb) %>%
@@ -22,9 +41,18 @@ read_csv("data/rawVsppPEA.csv")%>%
   mutate(energy = energy/1000)%>%
   filter(year == "2564", regionNumber == "2") %>% 
   group_by(province, fuel, month) %>%
-  summarise(sum = sum(energy), .groups = "drop")
+  summarise(sumEnergy = sum(energy), .groups = "drop")
 
-
+read_csv("data/rawVsppPEA.csv")%>%
+  select(year, regionNumber, province, fuel, contractCapacityMW, month.abb) %>%
+  replace_na(list(contractCapacityMW = 0))%>%
+  pivot_longer(col = month.abb,
+               names_to = "month",
+               values_to = "energy")%>%
+  mutate(energy = energy/1000)%>%
+  filter(year == "2564", regionNumber == "2") %>% 
+  group_by(province, fuel, month) %>%
+  summarise(sumContractCapacityMW = sum(contractCapacityMW), .groups = "drop")
 
 # Create yearly typical profile
 typicalProfile1Year <- 
