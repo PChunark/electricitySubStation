@@ -13,7 +13,7 @@ vsppNE<- read_csv("data/vspptmo_adjustNE.csv")%>%
 
 # Energy and MW data of VSPP in MEA and PEA
 inputYear <- "2564"
-region <- "3"
+region <- "2"
 
 if (inputYear == inputYear & region == region) {
   a <- read_csv("data/rawVsppPEA.csv")%>%
@@ -25,7 +25,9 @@ if (inputYear == inputYear & region == region) {
     mutate(energy = energy/1000)%>%
     filter(year == inputYear, regionNumber == region) %>% 
     group_by(province, fuel, month) %>%
-    summarise(sumEnergy = sum(energy), .groups = "drop")
+    mutate(sumEnergy = sum(energy)) %>%
+    ungroup()
+    
   print(a)
 }else {
   print("not match")
@@ -41,7 +43,8 @@ read_csv("data/rawVsppPEA.csv")%>%
   mutate(energy = energy/1000)%>%
   filter(year == "2564", regionNumber == "2") %>% 
   group_by(province, fuel, month) %>%
-  summarise(sumEnergy = sum(energy), .groups = "drop")
+  mutate(sumEnergy = sum(energy)) %>%
+  ungroup()
 
 read_csv("data/rawVsppPEA.csv")%>%
   select(year, regionNumber, province, fuel, contractCapacityMW, month.abb) %>%
@@ -79,5 +82,4 @@ vsppNE %>%
     title = "กำลังการผลิตตามสัญญาของ VSPP ในภาคอีสาน"
   )+
   theme_light()
-
 
