@@ -71,7 +71,7 @@ R4SubProfile2022 %>%
 
 profile<-
 R4SubProfile2030 %>% 
-  filter(egatsub == "SLB/115") %>% 
+  filter(egatsub == "CTG/115") %>% 
   ggplot()+
   geom_line(aes(x = time2, y = mw, group = dummy,color =season),
             linewidth = 0.2)+
@@ -81,9 +81,9 @@ R4SubProfile2030 %>%
   labs(x = NULL,
        y = "Substation supply (MW)",
        subtitle = "2573")+
-  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(breaks = seq(-30,30,10),
-                     limits = c(-30,30))
+  scale_x_datetime(date_breaks = "1 day", date_labels = "%d %b")
 
-ggsave("figures/R4_SLB115_2030.png", width = 7, height = 3.5, units = "in", dpi = 300)
-profileFigure <- c(profileFigure, list("SLB/115_R4_2030" = profile))
+ggplotly(profile)
+
+ggsave("figures/R4_CTG115_2030.png", width = 7, height = 3.5, units = "in", dpi = 300)
+profileFigure <- c(profileFigure, list("BMN/22_R4_2030" = profile))
