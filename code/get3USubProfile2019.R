@@ -33,7 +33,7 @@ R4SubProfile2019 <- as_tibble(data2019[["R4"]])
 
 plot<-
   R4SubProfile2019 %>% 
-  filter(egatsub == "CTG/115") %>% 
+  filter(egatsub == "CM3/115") %>% 
   ggplot()+
   geom_line(aes(x = TIME_LOCAL, 
                 y = mw, 
@@ -84,7 +84,7 @@ R4SubProfile2019_filtered <- as_tibble(data2019_filtered[["R4"]])
 
 plot<-
   R4SubProfile2019_filtered %>% 
-  filter(egatsub == "CTG/115") %>% 
+  filter(egatsub == "CM3/115") %>% 
   ggplot()+
   geom_line(aes(x = TIME_LOCAL, 
                 y = mw, 
@@ -98,7 +98,7 @@ plot<-
   labs(x = NULL,
        y = "Substation supply (MW)",
        subtitle = "2562")+
-  scale_x_datetime(date_breaks = "1 day", date_labels = "%d %b %y")+
+  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")+
   scale_y_continuous(breaks = seq(0,100,25),
                      limits = c(0,100))
 
