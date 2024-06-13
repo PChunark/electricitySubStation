@@ -8,7 +8,7 @@ file_paths <-
 filenms <-
   list.files(path = "data/", pattern = "Load profile", full.names = F)
 
-names(file_paths) <- c("MEA", "Central R1", "NorthE R2", "South R3", "North R4") 
+names(file_paths) <- c("MEA", "R1", "R2", "R3", "R4") 
 
 # substation_profile2019<- 
   file_paths %>% 
@@ -19,7 +19,7 @@ names(file_paths) <- c("MEA", "Central R1", "NorthE R2", "South R3", "North R4")
 profileFigure <- list()
 
 
-names(substation_profile2019) <- filenms
+# names(substation_profile2019) <- filenms
 
 
 a<- file_paths %>% 
@@ -32,7 +32,13 @@ a<- file_paths %>%
                     },
       .id = "region"
       ) 
+egatsub_abv <- 
+     unique(a[c("egatsub","region")]) %>% 
+     filter(egatsub != "total") %>%
+     separate(col = egatsub, into = c("sub","voltage"), sep = "/", remove = FALSE)
+write.csv(b,file = "egatsub.csv") 
 
+ 
 # boxplot <-
 a %>% 
   mutate(month = month(TIME_LOCAL),
