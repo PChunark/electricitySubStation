@@ -55,7 +55,6 @@ csv_file_path <- function(path, pattern, region,substation){
 }
 
 # Read Excel file and plot #####
-
 excel_file_path <- function(path, pattern, region, substation){
   file_path <-
     list.files(path = path,
@@ -105,3 +104,4 @@ excel_file_path <- function(path, pattern, region, substation){
 csv_file_path("data/subSummaryInfo","2019_", "R4", "CM3/115")
 # Filtered profile #####
 excel_file_path("data/subSummaryInfo","df_", "R4", "CM3/115")
+
