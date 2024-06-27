@@ -14,7 +14,7 @@ names(file_paths) <- c("MEA", "R1", "R2", "R3", "R4")
   file_paths %>% 
   map(read_excel) %>% 
     pivot_longer(col = -TIME_LOCAL, names_to = "egatsub", values_to = "kw")
-  set_names(., nm=filenms) %>% 
+  set_names(., nm=filenms) 
     
 profileFigure <- list()
 
@@ -32,30 +32,17 @@ a<- file_paths %>%
                     },
       .id = "region"
       ) 
+# Get abbreviation sub station list 
 egatsub_abv <- 
      unique(a[c("egatsub","region")]) %>% 
      filter(egatsub != "total") %>%
      separate(col = egatsub, into = c("sub","voltage"), sep = "/", remove = FALSE)
+
+# Export to excel file
 write.csv(b,file = "egatsub.csv") 
 
  
-# boxplot <-
-a %>% 
-  mutate(month = month(TIME_LOCAL),
-         month = month.abb[month],
-         month = factor(month, levels = month.abb),
-         year = year(TIME_LOCAL)) %>% 
-  filter(region == "MEA",
-         egatsub != "total",
-         month == month.abb[1:12],
-         year == 2019) %>% 
-  # group_by(sub) %>% 
-  ggplot(aes(x = egatsub, y = kw/1000, fill = month)) +
-  geom_boxplot() +
-  # geom_jitter(color="black", size=0.4, alpha=0.9) +
-  # facet_wrap(~month,
-  #            ncol = 4)+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+# Facet plots #####
 
 profile <-
 a %>% 
@@ -88,6 +75,15 @@ ggsave("figures/MEASub2019.png", width = 10, height = 9)
 profileFigure <- c(profileFigure, list("MEAsub2019" = profile))
 
 
+# Regional plots for 2019 raw data #####
+
+
+
+function(region , sub ){
+  
+}
+
+
 profile <-
   a %>% 
   mutate(month = month(TIME_LOCAL),
@@ -98,7 +94,7 @@ profile <-
                           if_else(month %in% c("Jun","Jul","Aug","Sep","Oct"), "Rainy",
                                   if_else (month %in% c("Nov","Dec","Jan","Feb"),"Winter", "Others")))) %>%
   mutate(dummy = "dummy") %>% 
-  filter(region == "North R4",
+  filter(region == "R4",
          egatsub == "SLB/115",
          month %in% c(month.abb[1:12]),
          year == 2019) %>% 
