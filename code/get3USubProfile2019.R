@@ -47,9 +47,12 @@ plot<-
   labs(x = NULL,
        y = "Substation supply (MW)",
        subtitle = "2562")+
-  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(breaks = seq(0,100,25),
-                     limits = c(0,100))
+  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")
+# +
+  # scale_y_continuous(breaks = seq(0,100,25),
+                     # limits = c(0,100))
+
+ggplotly(plot)
 
 ggsave("figures/R4_CTG115_2019.png", width = 7, height = 3, units = "in", dpi = 300)
 profileFigure <- c(profileFigure, list("BMN/22_R4_2019" = profile))
@@ -98,9 +101,10 @@ plot<-
   labs(x = NULL,
        y = "Substation supply (MW)",
        subtitle = "2562")+
-  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(breaks = seq(0,100,25),
-                     limits = c(0,100))
+  scale_x_datetime(date_breaks = "1 month", date_labels = "%b")
+# +
+  # scale_y_continuous(breaks = seq(0,100,25),
+                     # limits = c(0,100))
 
 ggplotly(plot)
 
