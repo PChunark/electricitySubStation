@@ -33,7 +33,7 @@ R4SubProfile2019 <- as_tibble(data2019[["R4"]])
 
 plot<-
   R4SubProfile2019 %>% 
-  filter(egatsub == "CM3/115") %>% 
+  filter(egatsub == "SKP/0.38") %>% 
   ggplot()+
   geom_line(aes(x = TIME_LOCAL, 
                 y = mw, 
@@ -54,8 +54,8 @@ plot<-
 
 ggplotly(plot)
 
-ggsave("figures/R4_CTG115_2019.png", width = 7, height = 3, units = "in", dpi = 300)
-profileFigure <- c(profileFigure, list("BMN/22_R4_2019" = profile))
+ggsave("figures/R4_3U_SKP0.38_2019.png", width = 7, height = 3, units = "in", dpi = 300)
+profileFigure <- c(profileFigure, list("R4_3U_SKP0.38_2019" = profile))
 
 
 # Filtered profiles #####
@@ -84,10 +84,13 @@ data2019_filtered <-
   )
 
 R4SubProfile2019_filtered <- as_tibble(data2019_filtered[["R4"]])
+R3SubProfile2019_filtered <- as_tibble(data2019_filtered[["R3"]])
+R2SubProfile2019_filtered <- as_tibble(data2019_filtered[["R2"]])
+R1SubProfile2019_filtered <- as_tibble(data2019_filtered[["R1"]])
 
 plot<-
-  R4SubProfile2019_filtered %>% 
-  filter(egatsub == "CM3/115") %>% 
+  R1SubProfile2019_filtered %>% 
+  filter(egatsub == "CHK/0.38") %>% 
   ggplot()+
   geom_line(aes(x = TIME_LOCAL, 
                 y = mw, 
@@ -109,8 +112,8 @@ plot<-
 ggplotly(plot)
 
 
-ggsave("figures/R4_CM2115_2019_filtered.png", width = 7, height = 3, units = "in", dpi = 300)
-profileFigure <- c(profileFigure, list("BMN/22_R4_2019" = profile))
+ggsave("figures/R1_3U_CHK0.38_2019_filtered.png", width = 7, height = 3, units = "in", dpi = 300)
+profileFigure <- c(profileFigure, list("R2_3U_SRDPV22_2019_filtered" = profile))
 
 
 

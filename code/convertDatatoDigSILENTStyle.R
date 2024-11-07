@@ -38,29 +38,23 @@ data1 <-
            )  
   
 data2 <-
-  data1 %>% reduce(full_join)
+  data1 %>% 
+  reduce(full_join) 
 
-# data3<-
-#   data1 %>% 
-#   reduce(bind_cols) #%>% [1:2]
-  # mutate(year = year(TIMESTAMP)) %>%
-  # mutate(time = format(TIMESTAMP, format = "%H:%M:%S")) %>% 
-  # mutate(date = format(TIMESTAMP, format = "%m-%d")) %>% 
-  # select(-TIMESTAMP) %>% 
-  # pivot_wider(names_from = year, values_from = MW) 
 
 data4 <- list()
-data5 <- list()
+
 
 for (sub in unique(data2$Substation)){
   
   data4[[sub]]<-
     data2 %>% 
     filter(Substation == sub) %>% 
-    mutate(YEAR = as.character(year(TIMESTAMP))) 
+    mutate(YEAR = year(TIMESTAMP)) 
  }
+ 
 
-data6 <- data4 %>% reduce(full_join)
+data6 <- data4[1:3] %>% reduce(full_join)
 
 data7 <- list()
 
@@ -69,6 +63,13 @@ for (y in unique(data6$YEAR)){
   data7[[y]] <-
   data6 %>% 
     filter(YEAR == y)
+  for(sub in unique(data6$Substation)){
+    filename <- paste0("processData/R1/",sub,"_",y, ".csv")
+    write.csv(data7[[y]],
+              file = filename,
+              row.names = FALSE)
+  }
+  
 }
 
 # for (i in unique(data6$YEAR)){
@@ -79,21 +80,11 @@ for (y in unique(data6$YEAR)){
 #   assign(paste0("forecast_",i),as.data.frame(data4[[i]]))
 # }
 
-data8 <- data7[1:5]%>% reduce(qpcR:::cbind.na)
-
-data9 <- list()
-
-for(s in unique(data2$Substation)){
-  
-  data9[[s]] <-
-    data8 %>% 
-    filter(Substation == s)
-  
-}
-
-
-
-
+# data8 <- data7[1:4]%>% reduce(qpcR:::cbind.na)
+# write.csv(data8,
+#           file = "processData/R1sub.csv",
+#           row.names = FALSE)
+# 
 
 
 
